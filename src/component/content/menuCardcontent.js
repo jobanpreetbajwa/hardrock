@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from "react";
 import Card from "./card";
-import Usefetch from "../utils/useFetch";
+import useFetch from "../utils/useFetch";
+import { useSelector } from "react-redux";
+import dummy from "../dummy";
 
 export default function Menucardcontent() {
+  const token = useSelector((state) => state.logged.token);
+  const fetch = useFetch;
   const [menuData, setMenudata] = useState([]);
-  const items = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
   useEffect(() => {
-    const fetch = async () => {
-      const data = await Usefetch();
-      setMenudata(data);
+    const fetchAll = async () => {
+      const data = await fetch("http://192.168.1.60:5000/users/list", token);
+      setMenudata(Object.values(data));
     };
-    fetch();
+    fetchAll();
   }, []);
   return (
     <>
-      <div className="flex flex-col ">
-        {items.map((item,i) => {
+      <div className="mx-auto grid md:grid md:grid-cols-2 gap-x-16 gap-y-4 overflow-scroll">
+        {menuData.map((item, i) => {
           return <Card item={item} key={i} />;
         })}
       </div>

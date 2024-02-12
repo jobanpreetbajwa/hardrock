@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import "../../index.css";
-import Useregistration from "../utils/useRegistration";
+import useRegistration from "../utils/useRegistration";
+import { useNavigate } from "react-router-dom";
 export default function Registration(props) {
+  const registration = useRegistration;
+  const navigate = useNavigate();
   const [userName, setUsername] = useState("");
   const [usernameError, setUsernameerror] = useState("");
   const [email, setEmail] = useState("");
@@ -60,12 +63,17 @@ export default function Registration(props) {
       contact,
       "contact"
     );
-    const res = await Useregistration(userName, email, contact, password);
+    const isAdmin = document.getElementById("radio").checked;
+    const res = await registration(userName, email, contact, password, isAdmin);
     console.log(res, "res from backend");
-    alert("signUp successfully");
-    setTimeout(() => {
-      props.setNewuser(false);
-    }, 1000);
+    if (res.OK) {
+      alert("signUp successfully");
+      setTimeout(() => {
+        console.log("in registration");
+        navigate("/", { replace: true });
+      }, 1000);
+    }
+
     // if (userName && email && password && contact && confirmPassword) {
     //   if (password != confirmPassword) {
     //     console.log(password, confirmPassword);
@@ -168,6 +176,12 @@ export default function Registration(props) {
                 </div>
               </div>
               <div className="mt-2 flex flex-col gap-8">
+                <div className="flex">
+                  <input type="radio" className="mr-1" id="radio"></input>
+                  <label className=" opacity-70 capitalize font-serif text-slate-200">
+                    is admin?
+                  </label>
+                </div>
                 <div className="h-fit rounded bg-red-500 ">
                   <button
                     className="h-10 w-full text-center"

@@ -6,7 +6,7 @@ export default function Menu() {
   return (
     <>
       <div className="block">
-        <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-1 ">
           <Menuheader />
           <Menuitems />
         </div>

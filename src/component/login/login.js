@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import "../../index.css";
-import Useloginrequest from "../utils/useLoginrequest";
+import useLoginrequest from "../utils/useLoginrequest";
 import Registration from "./registration";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { adminLogin } from "../store/cartSlice";
+import { adminLogin, logIn } from "../store/cartSlice";
 export default function Login(props) {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const loginRequest = useLoginrequest;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [newUser, setNewuser] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [isAdmin, setIsadmin] = useState(false);
   const [emailError, setEmailerror] = useState(null);
   const [passwordError, setPassworderror] = useState(null);
   const [submitError, setSubmiterror] = useState(null);
@@ -44,25 +44,32 @@ export default function Login(props) {
   };
 
   const submitHandler = async () => {
-    dispatch(adminLogin())
-    navigate("/admin",{replace:true})
-    // if (!emailError && !passwordError) {
-    //   if (email && password) {
-    //     const isAdmin = document.getElementById("radio").checked;
-    //     const res = await Useloginrequest(email, password);
-    //     console.log(res, "res");
-      
-    //     if (res.token) {
-    //       props.setLogin(true);
-    //       // navigate("all",{replace:true})
-    //     }
-    //     console.log(res, "res from backend");
-    //   } else {
-    //     setSubmiterror("fields must required");
-    //   }
-    // } else {
-    //   setSubmiterror("please correct form");
-    // }
+    if (!emailError && !passwordError) {
+      if (email && password) {
+        const isAdmin = document.getElementById("radio").checked;
+        const res = await loginRequest(email, password, isAdmin);
+        console.log(res, "res");
+        if (res.msg === "NO_RECORD_FOUND") {
+          setTimeout(() => {
+            navigate("/registration", { replace: true });
+          }, 1000);
+        }
+        if (res.admin) {
+          //for admin
+          dispatch(adminLogin());
+          navigate("/admin", { replace: true });
+        }
+        if (res.token) {
+          dispatch(logIn(res.token));
+          navigate("/menu", { replace: true });
+        }
+        console.log(res, "res from backend");
+      } else {
+        setSubmiterror("fields must required");
+      }
+    } else {
+      setSubmiterror("please correct form");
+    }
   };
   return (
     <>
@@ -84,7 +91,7 @@ export default function Login(props) {
                 </div>
                 <div className="text-left font-light font-serif flex flex-col gap-7 relative ">
                   <input
-                    className="peer h-14 bg-black bg-opacity-70 rounded outline outline-1 outline-white"
+                    className="peer text-red-800 h-14 bg-black bg-opacity-70 rounded outline outline-1 outline-white"
                     onBlur={emailValidator}
                     onFocus={() => {
                       setEmailerror(false);
@@ -145,7 +152,6 @@ export default function Login(props) {
             </div>
           </div>
         </div>
-        
       )}
       {newUser && <Registration setNewuser={setNewuser} />}
     </>

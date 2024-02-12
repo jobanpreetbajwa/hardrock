@@ -1,6 +1,6 @@
 import React from "react";
 
-async function Useregistration(username, email, contact, password) {
+async function useRegistration(username, email, contact, password) {
   let data = null;
   try {
     const res = await fetch("http://192.168.1.60:5000/signUp", {
@@ -24,4 +24,4 @@ async function Useregistration(username, email, contact, password) {
   return data;
 }
 
-export default Useregistration;
+export default useRegistration;

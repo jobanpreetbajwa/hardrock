@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Menucardcontent from "./menuCardcontent";
 import Menucardtop from "./menuCardtop";
 import Footer from "./footer";
@@ -7,17 +7,23 @@ import { FaTwitter } from "react-icons/fa6";
 import { FaWifi } from "react-icons/fa";
 import { FaInstagramSquare } from "react-icons/fa";
 import { Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
 export default function Menuitems() {
-  
+  const amount = useSelector((state) => state.cart.total);
+  useEffect(() => {
+    console.log("render");
+  }, [amount]);
   return (
     <>
       <div className="flex justify-center">
-        <Menucardtop setMenu />
+        <Menucardtop />
       </div>
-      <div className="flex justify-center h-auto  overflow-auto">
-        <Menucardcontent/>
+      <div className="flex justify-center ">
+        {/* <Menucardcontent /> */}
+        <Outlet />
       </div>
-      <div className="bg-black bg-opacity-85">
+
+      <div className="bg-black bg-opacity-95">
         <div className="flex justify-around  text-white uppercase font-light font-serif">
           <Footer />
         </div>

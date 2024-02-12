@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import { IoCartOutline } from "react-icons/io5";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { ReactDOM } from "react";
 import Cart from "../cart/cart";
 import { createPortal } from "react-dom";
+import { logIn } from "../store/cartSlice";
 export default function Menuheader() {
+  const dispatch = useDispatch();
   const [portal, setPortal] = useState(false);
   const num = useSelector((state) => {
-    return Object.keys(state.cart.itemList).length;
+    return state.cart.length;
   });
+  const logoutHandler = () => {
+    dispatch(logIn(""));
+  };
   const cartHandler = () => {
     console.log("portal");
     setPortal(true);
@@ -19,7 +24,7 @@ export default function Menuheader() {
         <div>
           <img src="hardrock.png" className="rounded h-16 "></img>
         </div>
-        <div className="flex flex-col items-center justify-center font-bold font-serif uppercase ">
+        <div className="flex flex-col items-center justify-center font-bold font-serif uppercase -ml-16 ">
           <p className="text-center text-2xl">Sunrise </p>
           <p className="text-center ">oue menu </p>
         </div>
@@ -30,6 +35,12 @@ export default function Menuheader() {
           <p className="py-0 px-0 -mt-5 text-xs bg-rose-950 text-white rounded-full text-center item-center w-3 h-max">
             {num}
           </p>
+          <button
+            className="ml-2 rounded outline outline-black-400 outline-2 px-1 "
+            onClick={logoutHandler}
+          >
+            Logout
+          </button>
         </div>
         {portal &&
           createPortal(

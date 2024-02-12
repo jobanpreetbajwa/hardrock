@@ -1,101 +1,105 @@
 import React from "react";
 import { createSlice } from "@reduxjs/toolkit";
 import { nanoid } from "nanoid";
+import { json } from "react-router-dom";
 const item = {
-  total: 600,
-  length:3,
-  itemList: {
-    1:{
-    id:1,
-    img:"imageUrl",
-    content:"item content1",
-    price:"$120",
-    quantity:1
-    },
-    2:{
-    id:2,
-    img:"imageUrl",
-    content:"item content2",
-    price:"$120",
-    quantity:1
-    },
-    3:{
-    id:3,
-    img:"imageUrl",
-    content:"item content3",
-    price:"$120",
-    quantity:3
-    }
-  },
+  total: 0,
+  length: 0,
+  itemList: [],
 };
 
 const user = {
-  token:""
-}
+  token: "",
+};
 export const loggedSlice = createSlice({
-  name:"looged",
-  initialState:user,
-  reducers:{
-    logIn:(state,action)=>{
-      state.token=action.payload
+  name: "looged",
+  initialState: user,
+  reducers: {
+    logIn: (state, action) => {
+      state.token = action.payload;
     },
-    logOut:(state)=>{
-      state.token=""
-    }
-  }
-})
+    logOut: (state) => {
+      state.token = "";
+    },
+  },
+});
 
 const admin = {
-  isAdmin:false
-}
+  isAdmin: false,
+};
 export const adminSlice = createSlice({
-  name:"admin",
-  initialState:admin,
-  reducers:{
-    adminLogin:(state)=>{
-      state.isAdmin=true
-      console.log(state.isAdmin,"admin")
-    }
-  }
-})
+  name: "admin",
+  initialState: admin,
+  reducers: {
+    adminLogin: (state) => {
+      state.isAdmin = true;
+      console.log(state.isAdmin, "admin");
+    },
+  },
+});
 
 const cartSlice = createSlice({
   name: "cart",
   initialState: item,
   reducers: {
     addTocart: (state, action) => {
-      
-      if (state.itemList[action.payload.id]) {
-        state.itemList[action.payload.id].quantity += 1;
+      const newItem = action.payload.obj;
+      const existingItem = state.itemList[newItem._id];
+      const newState = {
+        ...state,
+        itemList: { ...state.itemList },
+      };
+      if (existingItem) {
+        newState.itemList[newItem._id] = {
+          ...existingItem,
+          quantity: existingItem.quantity + newItem.quantity,
+        };
       } else {
-        state.itemList[nanoid(5)] = action.payload;
+        newState.itemList[newItem._id] = newItem;
       }
-      state.total += action.payload.price;
-      state.length+=1
-      console.log(state.items);
+      newState.total += newItem.price * newItem.quantity;
+      newState.length += newItem.quantity;
+
+      return newState;
     },
     removeTocart: (state, action) => {
-      console.log(state.itemList[action.payload.id],"obj")
-      if (
-        state.length > 0 &&
-        state.itemList[action.payload.id].quantity > 0
-      ) {
-        const price = state.itemList[action.payload.id].price.slice(1,)
-        state.total -= price;
-        if (state.itemList[action.payload.id].quantity > 1) {
-          state.itemList[action.payload.id].quantity -= 1;
+      const itemId = action.payload.id;
+      if (!action.payload.obj) {
+        console.log(action.payload.id, "remove obj with id");
+        delete state.itemList[itemId]; //deleting whole item
+        return;
+      }
+      const itemToRemove = state.itemList[itemId];
+      if (itemToRemove) {
+        let updatedItemList = { ...state.itemList };
+        let newTotal = state.total;
+        if (itemToRemove.quantity > 1) {
+          updatedItemList[itemId] = {
+            ...itemToRemove,
+            quantity: itemToRemove.quantity - 1,
+          };
         } else {
-          state.length -=1
-          delete state.itemList[action.payload.id];
+          delete updatedItemList[itemId];
         }
+
+        newTotal -= itemToRemove.price;
+
+        return {
+          ...state,
+          itemList: updatedItemList,
+          total: newTotal,
+          length: state.length - 1,
+        };
       }
     },
     clearCart: (state) => {
       state.itemList = {};
+      state.length = 0;
+      state.total = 0;
     },
   },
 });
-export const {logIn,logOut} = loggedSlice.actions
-export const {adminLogin} = adminSlice.actions
+export const { logIn, logOut } = loggedSlice.actions;
+export const { adminLogin } = adminSlice.actions;
 export const { addTocart, removeTocart, clearCart } = cartSlice.actions;
 export default cartSlice.reducer;

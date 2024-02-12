@@ -23,7 +23,7 @@ export default function Cart(props) {
       <div className="flex justify-center items-center">
         <div className="flex flex-col gap-4 w-2/3 mt-8">
           <div className="flex justify-between font-serif bg-slate-50 p-3">
-            <div>12379173</div>
+            <div>9478426698</div>
             <div className="flex ">
               <div className="flex px-2">
                 <p className="mt-1">
@@ -41,7 +41,7 @@ export default function Cart(props) {
 
           <div className="flex flex-col gap-4 justify-center items-center">
             {list.map((item) => {
-              return <Cartitems  item={item}/>;
+              return <Cartitems item={item} />;
             })}
           </div>
           <div className="flex justify-center gap-6">

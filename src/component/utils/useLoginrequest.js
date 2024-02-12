@@ -1,6 +1,6 @@
 import React from "react";
 
-async function Useloginrequest(email, password, is_Admin) {
+async function useLoginrequest(email, password, isAdmin) {
   let data = null;
   try {
     const res = await fetch("http://192.168.1.60:5000/signIn", {
@@ -11,6 +11,7 @@ async function Useloginrequest(email, password, is_Admin) {
       body: JSON.stringify({
         email,
         password,
+        isAdmin,
       }),
     });
     console.log(res);
@@ -21,4 +22,4 @@ async function Useloginrequest(email, password, is_Admin) {
 
   return data;
 }
-export default Useloginrequest;
+export default useLoginrequest;

@@ -1,22 +1,34 @@
 import React from "react";
-import { NavLink,Link } from "react-router-dom";
-export default function Menucardhrefp(props) {
+import { NavLink, Link } from "react-router-dom";
+export default function Menucardhrefp() {
   return (
     <>
       <div className="flex ">
         <ul className="flex justify-around font-serif  ">
-          <a href="/menu" className="mx-2 outline rounded-lg outline  outline-slate-300 px-1 px-2 outline-rose-950 ">
+          <Link
+            to="/menu"
+            className="mx-2  rounded-lg outline  outline-slate-300 px-2  "
+          >
             All
-          </a>
-          <a href="/breakfast" className="mx-2 outline rounded-lg outline  outline-slate-300 px-1 px-2 outline-rose-950">
+          </Link>
+          <Link
+            to="breakfast"
+            className="mx-2  rounded-lg outline  outline-slate-300 px-2 "
+          >
             breakfast
-          </a>
-          <a href="lunch" className="mx-2 outline rounded-lg outline  outline-slate-300 px-1 px-2 outline-rose-950">
+          </Link>
+          <Link
+            to="lunch"
+            className="mx-2  rounded-lg outline  outline-slate-300 px-2 "
+          >
             lunch
-          </a>
-          <a href="shakes" className="mx-2 outline rounded-lg outline  outline-slate-300 px-1 px-2 outline-rose-950">
+          </Link>
+          <Link
+            to="shakes"
+            className="mx-2  rounded-lg outline  outline-slate-300 px-2 "
+          >
             shakes
-          </a>
+          </Link>
         </ul>
       </div>
     </>

@@ -1,16 +1,26 @@
 import React from "react";
 
-async function Usefetch(url) {
+async function useFetch(url, token) {
   let data = null;
   try {
-    const res = await fetch("http://192.168.1.115:8000/inventory/list/", {
+    const res = await fetch(url, {
       method: "GET",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
     });
     data = await res.json();
+    const obj = {};
+
+    data.forEach((element) => {
+      obj[element["_id"]] = element;
+    });
+    console.log(obj);
+    data = obj;
   } catch (error) {
     console.log("Error while fetching menu items", error);
   }
   return data;
 }
 
-export default Usefetch;
+export default useFetch;
