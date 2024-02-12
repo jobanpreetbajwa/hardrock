@@ -2,14 +2,34 @@ import React from "react";
 import { createSlice } from "@reduxjs/toolkit";
 import { nanoid } from "nanoid";
 import { json } from "react-router-dom";
-const item = {
-  total: 0,
-  length: 0,
-  itemList: [],
-};
 
+const inventry = {
+  data:{},
+  old:[],
+  new:[],
+  deleted:[]
+}
+
+export const inventrySlice = createSlice({
+  name:"inventry",
+  initialState:inventry,
+  reducers:{
+    oldUpdated:(state,action)=>{
+      state.old.push(action.payload)
+    },
+    setNewdata:(state,action)=>{
+      state.new.push(action.payload)
+    },
+    deleteItems:(state,action)=>{
+      state.deleted.push(action.payload)
+    }
+  }
+})
+
+
+                                                            //user login info
 const user = {
-  token: "",
+  token: "abcd",
 };
 export const loggedSlice = createSlice({
   name: "looged",
@@ -24,7 +44,9 @@ export const loggedSlice = createSlice({
   },
 });
 
-const admin = {
+
+
+const admin = {                                              //admin login info
   isAdmin: false,
 };
 export const adminSlice = createSlice({
@@ -38,6 +60,13 @@ export const adminSlice = createSlice({
   },
 });
 
+
+
+const item = {
+  total: 0,
+  length: 0,
+  itemList: [],
+};                                                         //cart 
 const cartSlice = createSlice({
   name: "cart",
   initialState: item,
@@ -99,6 +128,9 @@ const cartSlice = createSlice({
     },
   },
 });
+
+
+export const {oldUpdated,setNewdata,deleteItems} = inventrySlice.actions
 export const { logIn, logOut } = loggedSlice.actions;
 export const { adminLogin } = adminSlice.actions;
 export const { addTocart, removeTocart, clearCart } = cartSlice.actions;

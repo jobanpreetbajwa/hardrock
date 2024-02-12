@@ -67,9 +67,9 @@ const router = createBrowserRouter([
     element: <Protectedlogin />,
     children: [
       { index: true, element: <Menucardcontent /> },
-      { path: "menu/breakfast", element: <Breakfast /> },
-      { path: "menu/lunch", element: <Lunch /> },
-      { path: "menu/shakes", element: <Shakes /> },
+      { path: "breakfast", element: <Breakfast /> },
+      { path: "lunch", element: <Lunch /> },
+      { path: "shakes", element: <Shakes /> },
     ],
   },
 ]);
@@ -78,9 +78,6 @@ function App() {
   return (
     <>
       <RouterProvider router={router}></RouterProvider>
-
-      {/* <Admin /> */}
-      {/* <Menu /> */}
     </>
   );
 }

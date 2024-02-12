@@ -54,6 +54,7 @@ export default function Cart(props) {
             <button className="bg-rose-950  p-1 rounded text-white text-center item-center">
               checkOut
             </button>
+            
           </div>
         </div>
       </div>

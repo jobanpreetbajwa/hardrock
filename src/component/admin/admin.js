@@ -4,7 +4,7 @@ import Adminheader from "./adminHeader";
 
 export default function Admin(){
     return<>
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-2">
             <div className="p-4 flex justify-center ">
                 <Adminheader/>
             </div>
