@@ -19,7 +19,6 @@ export default function Menuitems() {
         <Menucardtop />
       </div>
       <div className="flex justify-center ">
-        {/* <Menucardcontent /> */}
         <Outlet />
       </div>
 
@@ -28,7 +27,7 @@ export default function Menuitems() {
           <Footer />
         </div>
         <div className="border-t-2 text-slate-100 mx-10 h-32 flex justify-center ">
-          <div className="flex mt-8">
+          <div className="flex items-center">
             <span className="px-6 ">
               <FaFacebook />
             </span>

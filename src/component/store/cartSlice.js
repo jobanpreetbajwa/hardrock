@@ -29,7 +29,7 @@ export const inventrySlice = createSlice({
 
                                                             //user login info
 const user = {
-  token: "abcd",
+  token: "",
 };
 export const loggedSlice = createSlice({
   name: "looged",

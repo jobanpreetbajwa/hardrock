@@ -13,6 +13,7 @@ export default function Menucardcontent() {
       const data = await fetch("http://192.168.1.60:5000/users/list", token);
       setMenudata(Object.values(data));
     };
+    setMenudata(dummy);
     fetchAll();
   }, []);
   return (

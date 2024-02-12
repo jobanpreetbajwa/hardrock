@@ -2,15 +2,17 @@ import { useState, useEffect } from "react";
 import React from "react";
 import Card from "./card";
 import useFetch from "../utils/useFetch";
+import dummy from "../dummy";
 export default function Breakfast() {
   const fetch = useFetch;
-  const [menuData, setMenudata] = useState([1]);
+  const [menuData, setMenudata] = useState([]);
   console.log("breakfast");
   useEffect(() => {
     const fetchAll = async () => {
       const data = await fetch("http://192.168.1.60:5000/users/breakfast");
       setMenudata(Object.values(data));
     };
+    setMenudata(dummy);
     fetchAll();
   }, []);
   return (

@@ -66,9 +66,9 @@ export default function Card({ item,setMenu,menu}) {
   return (
     <>
       <div className="flex flex-col gap-4 h-600  my-4 p-2 border-b-2">
-        <div className="flex justify-between">
+        <div className="flex justify-between gap-4 ">
           <img src="hardrock.png" className="rounded h-16"></img>
-          <div className="flex gap-2 font-bold underline underline-offset-8 justify-between">
+          <div className="flex gap-2 flex-1 font-bold h-fit border-black border-b-2 justify-between">
             <div className="font-serif  capitalize">{item.item_name}</div>
             <p className="text-amber-900">${item.price}</p>
           </div>

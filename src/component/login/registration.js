@@ -104,9 +104,9 @@ export default function Registration(props) {
           <div className="  p-5 flex justify-center  h-max text-red-800 font-extrabold uppercase">
             <div className=" flex  flex-col px-12 py-6 rounded w-96 bg-black bg-opacity-70 gap-4 ">
               <div className="text-left items-center h-12 pt-4">
-                <h1 className="font-serif text-white">Sign Up Page</h1>
+                <h1 className="font-serif text-white tracking-wider">Sign Up Page</h1>
               </div>
-              <div className="text-left font-light font-serif flex flex-col gap-7 relative ">
+              <div className="text-left tracking-widest font-light font-serif flex flex-col gap-7 relative ">
                 <div className="flex flex-col relative">
                   <input
                     onFocus={() => {
@@ -114,7 +114,7 @@ export default function Registration(props) {
                     }}
                     onBlur={usernameHandler}
                     type="text"
-                    className="peer h-14 bg-black bg-opacity-70 rounded outline outline-1 outline-white"
+                    className="peer tracking-widest text-white h-14 bg-black bg-opacity-70 rounded outline outline-1 outline-white"
                   />
                   <label className="transition-transform peer-valid:-translate-y-4 peer-focus:-translate-y-7 peer-valid:capitalize peer-focus:bg-black  peer-focus:border-x-2  uppercase text-white absolute left-3 top-4 opacity-70">
                     username
@@ -126,7 +126,7 @@ export default function Registration(props) {
 
                 <div className="flex flex-col relative">
                   <input
-                    className="peer h-14 bg-black bg-opacity-70 rounded outline outline-1 outline-white"
+                    className="peer text-white tracking-widest h-14 bg-black bg-opacity-70 rounded outline outline-1 outline-white"
                     onBlur={emailValidator}
                     onFocus={() => {
                       setEmailerror(false);
@@ -140,7 +140,7 @@ export default function Registration(props) {
 
                 <div className="flex flex-col relative">
                   <input
-                    className="peer h-14 bg-black bg-opacity-70 rounded outline outline-1 outline-white"
+                    className="peer h-14 tracking-widest text-white bg-black bg-opacity-70 rounded outline outline-1 outline-white"
                     inputMode="tel"
                   />
                   <label className="transition-transform peer-valid:-translate-y-4 peer-focus:-translate-y-7 peer-valid:capitalize  peer-focus:bg-black  peer-focus:border-x-2  uppercase text-white absolute left-3 top-4 opacity-70">
@@ -155,7 +155,7 @@ export default function Registration(props) {
                       setPassworderror(false);
                     }}
                     onBlur={passwordValidator}
-                    className=" peer
+                    className=" peer text-white tracking-widest
                   h-14 w-full bg-black bg-opacity-70  rounded outline outline-1 outline-white"
                   />
                   <label className="transition-transform peer-valid:capitalize peer-valid:-translate-y-4  peer-focus:-translate-y-7 peer-focus:border-x-2  peer-focus:bg-black uppercase text-white absolute left-3 top-4 opacity-70">
@@ -166,7 +166,7 @@ export default function Registration(props) {
                   )}
                 </div>
                 <div className="flex flex-col relative">
-                  <input className="peer h-14 bg-black bg-opacity-70 rounded outline outline-1 outline-white" />
+                  <input className="peer tracking-widest text-white h-14 bg-black bg-opacity-70 rounded outline outline-1 outline-white" />
                   <label className="transition-transform peer-valid:capitalize peer-valid:-translate-y-4 peer-focus:-translate-y-7  peer-focus:bg-black  peer-focus:border-x-2  uppercase text-white absolute left-3 top-4 opacity-70">
                     Confirm Password
                   </label>
@@ -175,7 +175,7 @@ export default function Registration(props) {
                   )}
                 </div>
               </div>
-              <div className="mt-2 flex flex-col gap-8">
+              <div className="mt-2 flex flex-col gap-8 tracking-widest">
                 <div className="flex">
                   <input type="radio" className="mr-1" id="radio"></input>
                   <label className=" opacity-70 capitalize font-serif text-slate-200">
@@ -184,7 +184,7 @@ export default function Registration(props) {
                 </div>
                 <div className="h-fit rounded bg-red-500 ">
                   <button
-                    className="h-10 w-full text-center"
+                    className="h-10 w-full text-center tracking-widest"
                     onClick={submitHandler}
                   >
                     {" "}

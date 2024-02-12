@@ -87,11 +87,11 @@ export default function Login(props) {
             <div className="  p-5 flex justify-center  h-max text-red-800 font-extrabold uppercase">
               <div className=" flex  flex-col px-12 py-6  w-96 bg-black bg-opacity-70 gap-4 ">
                 <div className="text-left items-center h-12 pt-4">
-                  <h1 className="font-serif text-white">Sign In</h1>
+                  <h1 className="font-serif tracking-widest text-white">Sign In</h1>
                 </div>
-                <div className="text-left font-light font-serif flex flex-col gap-7 relative ">
+                <div className="tracking-widest text-left font-light font-serif flex flex-col gap-7 relative ">
                   <input
-                    className="peer text-red-800 h-14 bg-black bg-opacity-70 rounded outline outline-1 outline-white"
+                    className="peer px-2  text-white h-14 bg-black bg-opacity-70 rounded outline outline-1 outline-white"
                     onBlur={emailValidator}
                     onFocus={() => {
                       setEmailerror(false);
@@ -108,8 +108,8 @@ export default function Login(props) {
                         setPassworderror(false);
                       }}
                       onBlur={passwordValidator}
-                      className=" peer
-                h-14 w-full bg-black bg-opacity-70  rounded outline outline-1 outline-white"
+                      className=" peer px-2
+                h-14 w-full bg-black bg-opacity-70 text-white rounded outline outline-1 outline-white"
                     />
                     <label className="transition-transform peer-valid:-translate-y-4 peer-focus:-translate-y-7 peer-focus:uppercase peer-focus:border-x-2  peer-focus:bg-black uppercase text-white absolute left-3 top-4 opacity-70">
                       Password
@@ -117,10 +117,10 @@ export default function Login(props) {
                     {passwordError && <p>{passwordError}</p>}
                   </div>
                 </div>
-                <div className="mt-2 flex flex-col gap-7">
+                <div className="mt-2 flex flex-col gap-7 tracking-widest">
                   <div className="h-fit rounded bg-red-500 ">
                     <button
-                      className="h-10 w-full text-center"
+                      className="h-10 w-full text-center tracking-widest"
                       onClick={submitHandler}
                     >
                       {" "}
@@ -145,7 +145,7 @@ export default function Login(props) {
                     </div>
                   </div>
                 </div>
-                <div className="text-center text-white font-serif font-normal ">
+                <div className=" tracking-widest text-center text-white font-serif font-normal ">
                   <h1>Forget password?</h1>
                 </div>
               </div>
