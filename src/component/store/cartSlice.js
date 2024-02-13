@@ -4,35 +4,34 @@ import { nanoid } from "nanoid";
 import { json } from "react-router-dom";
 
 const inventry = {
-  data:{},
-  old:[],
-  new:[],
-  deleted:[]
-}
+  data: {},
+  old: [],
+  new: [],
+  deleted: [],
+};
 
 export const inventrySlice = createSlice({
-  name:"inventry",
-  initialState:inventry,
-  reducers:{
-    oldUpdated:(state,action)=>{
-      state.old.push(action.payload)
+  name: "inventry",
+  initialState: inventry,
+  reducers: {
+    oldUpdated: (state, action) => {
+      state.old.push(action.payload);
     },
-    setNewdata:(state,action)=>{
-      state.new.push(action.payload)
+    setNewdata: (state, action) => {
+      state.new.push(action.payload);
     },
-    deleteItems:(state,action)=>{
-      state.deleted.push(action.payload)
-    }
-  }
-})
+    deleteItems: (state, action) => {
+      state.deleted.push(action.payload);
+    },
+  },
+});
 
-
-                                                            //user login info
+//user login info
 const user = {
-  token: "",
+  token: "abcd",
 };
 export const loggedSlice = createSlice({
-  name: "looged",
+  name: "logged",
   initialState: user,
   reducers: {
     logIn: (state, action) => {
@@ -44,9 +43,8 @@ export const loggedSlice = createSlice({
   },
 });
 
-
-
-const admin = {                                              //admin login info
+const admin = {
+  //admin login info
   isAdmin: false,
 };
 export const adminSlice = createSlice({
@@ -60,13 +58,11 @@ export const adminSlice = createSlice({
   },
 });
 
-
-
 const item = {
   total: 0,
   length: 0,
   itemList: [],
-};                                                         //cart 
+}; //cart
 const cartSlice = createSlice({
   name: "cart",
   initialState: item,
@@ -93,11 +89,6 @@ const cartSlice = createSlice({
     },
     removeTocart: (state, action) => {
       const itemId = action.payload.id;
-      if (!action.payload.obj) {
-        console.log(action.payload.id, "remove obj with id");
-        delete state.itemList[itemId]; //deleting whole item
-        return;
-      }
       const itemToRemove = state.itemList[itemId];
       if (itemToRemove) {
         let updatedItemList = { ...state.itemList };
@@ -121,6 +112,11 @@ const cartSlice = createSlice({
         };
       }
     },
+    deleteCartItem: (state, action) => {
+      const item = state.itemList[action.payload];
+      state.total -= item.price * item.quantity;
+      delete state.itemList[action.payload];
+    },
     clearCart: (state) => {
       state.itemList = {};
       state.length = 0;
@@ -129,9 +125,13 @@ const cartSlice = createSlice({
   },
 });
 
-
-export const {oldUpdated,setNewdata,deleteItems} = inventrySlice.actions
+export const { oldUpdated, setNewdata, deleteItems } = inventrySlice.actions;
 export const { logIn, logOut } = loggedSlice.actions;
 export const { adminLogin } = adminSlice.actions;
-export const { addTocart, removeTocart, clearCart } = cartSlice.actions;
+export const {
+  addTocart,
+  removeTocart,
+  clearCart,
+  deleteCartItem,
+} = cartSlice.actions;
 export default cartSlice.reducer;

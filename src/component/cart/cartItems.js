@@ -1,13 +1,13 @@
 import React from "react";
 import { MdDelete } from "react-icons/md";
 import { useDispatch } from "react-redux";
-import { addTocart, removeTocart } from "../store/cartSlice";
+import { addTocart, deleteCartItem, removeTocart } from "../store/cartSlice";
 export default function Cartitems({ item }) {
   const dispatch = useDispatch();
   const deleteHandler = (e) => {
     e.stopPropagation();
     const { _id } = item;
-    dispatch(removeTocart({ _id }));
+    dispatch(deleteCartItem(_id));
   };
   const addHandler = () => {
     const id = item._id;
@@ -29,14 +29,15 @@ export default function Cartitems({ item }) {
   };
   return (
     <>
-      <div className="flex gap-4">
-        <div className="flex">
-          <img src="hardrock.png" className="rounded-full w-14"></img>
+      <div className="flex gap-8 p-4 items-center border-b border-black">
+        <div className="flex h-20 w-20">
+          <img
+            src={`${item.item_image ? item.item_image : "coffee1.avif"}`}
+            className="w-full rounded-full"
+          ></img>
         </div>
-        <div className="flex">
+        <div className="flex w-24 truncate font-serif font-bold capitalize tracking-wider">
           {item.item_name}
-          {item.item_description}
-          {item.price}
           {"   " + item.quantity}
         </div>
         <div className="mx-2 text-white">
@@ -53,7 +54,10 @@ export default function Cartitems({ item }) {
             -
           </button>
         </div>
-        <button className="flex mt-1  text-red-600" onClick={deleteHandler}>
+        <button
+          className="flex mt-1 text-2xl pb-1 text-red-600 hover:text-rose-950"
+          onClick={deleteHandler}
+        >
           <MdDelete />
         </button>
       </div>

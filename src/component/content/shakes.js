@@ -16,7 +16,7 @@ export default function Shakes() {
   }, []);
   return (
     <>
-      <div className="flex flex-col ">
+      <div className="mx-auto grid 2xl:grid 2xl:grid-cols-2 gap-x-16 gap-y-2 overflow-scroll">
         {menuData.map((item, i) => {
           return <Card item={item} key={i} />;
         })}

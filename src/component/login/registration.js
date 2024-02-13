@@ -51,18 +51,6 @@ export default function Registration(props) {
     }
   };
   const submitHandler = async () => {
-    console.log(
-      userName,
-      "username",
-      email,
-      "email",
-      password,
-      "pass",
-      confirmPassword,
-      "confirm",
-      contact,
-      "contact"
-    );
     const isAdmin = document.getElementById("radio").checked;
     const res = await registration(userName, email, contact, password, isAdmin);
     console.log(res, "res from backend");
@@ -102,9 +90,11 @@ export default function Registration(props) {
             </div>
           </div>
           <div className="  p-5 flex justify-center  h-max text-red-800 font-extrabold uppercase">
-            <div className=" flex  flex-col px-12 py-6 rounded w-96 bg-black bg-opacity-70 gap-4 ">
+            <div className=" flex rounded-lg  flex-col px-12 py-6 rounded w-96 bg-black bg-opacity-70 gap-4 ">
               <div className="text-left items-center h-12 pt-4">
-                <h1 className="font-serif text-white tracking-wider">Sign Up Page</h1>
+                <h1 className="font-serif text-white tracking-wider">
+                  Sign Up Page
+                </h1>
               </div>
               <div className="text-left tracking-widest font-light font-serif flex flex-col gap-7 relative ">
                 <div className="flex flex-col relative">

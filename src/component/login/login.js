@@ -1,20 +1,39 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "../../index.css";
 import useLoginrequest from "../utils/useLoginrequest";
 import Registration from "./registration";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { adminLogin, logIn } from "../store/cartSlice";
+import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 export default function Login(props) {
   const loginRequest = useLoginrequest;
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isAdmin, setAdmin] = useState(false);
   const [newUser, setNewuser] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailerror] = useState(null);
   const [passwordError, setPassworderror] = useState(null);
   const [submitError, setSubmiterror] = useState(null);
+
+  const googleAuth = async (credentials) => {
+    try {
+      console.log(credentials, "cred");
+      const res = await fetch("http://192.168.1.60:5000/googleauth", {
+        method: "POST",
+        body: JSON.stringify(credentials),
+      });
+      if (res.token) {
+        dispatch(logIn(res.token));
+        navigate("/menu", { replace: true });
+      }
+    } catch (error) {
+      console.log("Error while sending google credential to backend", error);
+    }
+  };
+
   const emailValidator = (e) => {
     console.log(e.target.value);
     if (!e.target.value) {
@@ -43,10 +62,15 @@ export default function Login(props) {
     }
   };
 
+  const toggleRadio = (e) => {
+    e.target.checked = !isAdmin;
+    setAdmin(!isAdmin);
+    console.log(isAdmin);
+  };
+
   const submitHandler = async () => {
     if (!emailError && !passwordError) {
       if (email && password) {
-        const isAdmin = document.getElementById("radio").checked;
         const res = await loginRequest(email, password, isAdmin);
         console.log(res, "res");
         if (res.msg === "NO_RECORD_FOUND") {
@@ -78,16 +102,18 @@ export default function Login(props) {
           className="block  bg-black bg-opacity-80 bg-cover h-screen
       -z-1 "
         >
-          <div className="flex flex-col z-10">
+          <div className="flex flex-col z-10 ">
             <div className="block  w-screen p-10  ">
               <div className="text-red-800 text-2xl font-extrabold uppercase z-20">
                 <img src="hardrock.png" className="rounded h-16"></img>
               </div>
             </div>
             <div className="  p-5 flex justify-center  h-max text-red-800 font-extrabold uppercase">
-              <div className=" flex  flex-col px-12 py-6  w-96 bg-black bg-opacity-70 gap-4 ">
+              <div className=" flex rounded-lg flex-col px-12 py-6  w-96 bg-black bg-opacity-70 gap-4 ">
                 <div className="text-left items-center h-12 pt-4">
-                  <h1 className="font-serif tracking-widest text-white">Sign In</h1>
+                  <h1 className="font-serif tracking-widest text-white">
+                    Sign In
+                  </h1>
                 </div>
                 <div className="tracking-widest text-left font-light font-serif flex flex-col gap-7 relative ">
                   <input
@@ -130,7 +156,12 @@ export default function Login(props) {
                   {submitError && <p>{submitError}</p>}
                   <div className="flex justify-between text-white capitalize font-serif">
                     <div className="flex">
-                      <input type="radio" className="mr-1" id="radio"></input>
+                      <input
+                        type="radio"
+                        className="mr-1"
+                        id="radio"
+                        onClick={toggleRadio}
+                      ></input>
                       <label className=" opacity-70 ">is admin?</label>
                     </div>
                     <div>
@@ -145,8 +176,15 @@ export default function Login(props) {
                     </div>
                   </div>
                 </div>
-                <div className=" tracking-widest text-center text-white font-serif font-normal ">
+                <div className=" tracking-widest py-1 text-center text-white font-serif font-normal ">
                   <h1>Forget password?</h1>
+                </div>
+                <div className="flex justify-center py-2">
+                  <GoogleOAuthProvider clientId="120492723923-a7v61c4dbbtr29krkdutqo7orb9jqbue.apps.googleusercontent.com">
+                    <GoogleLogin
+                      onSuccess={(credentials) => googleAuth(credentials)}
+                    ></GoogleLogin>
+                  </GoogleOAuthProvider>
                 </div>
               </div>
             </div>

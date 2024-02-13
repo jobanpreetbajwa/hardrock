@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { IoCartOutline } from "react-icons/io5";
 import { useSelector, useDispatch } from "react-redux";
-import { ReactDOM } from "react";
 import Cart from "../cart/cart";
 import { createPortal } from "react-dom";
 import { logIn } from "../store/cartSlice";
@@ -21,7 +20,7 @@ export default function Menuheader() {
   return (
     <>
       <div className="flex gap-5 p-4 justify-between">
-        <div>
+        <div className="flex h-20 w-20">
           <img src="hardrock.png" className="rounded h-16 "></img>
         </div>
         <div className="flex flex-col items-center justify-center font-bold font-serif uppercase ">
