@@ -15,7 +15,7 @@ async function useFetch(url, token) {
     data.forEach((element) => {
       obj[element["_id"]] = element;
     });
-    console.log(obj);
+    // console.log(obj);
     data = obj;
   } catch (error) {
     console.log("Error while fetching menu items", error);

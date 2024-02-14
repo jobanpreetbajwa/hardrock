@@ -4,14 +4,18 @@ import { useSelector, useDispatch } from "react-redux";
 import Cart from "../cart/cart";
 import { createPortal } from "react-dom";
 import { logIn } from "../store/cartSlice";
+import { useNavigate } from "react-router-dom";
 export default function Menuheader() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [portal, setPortal] = useState(false);
   const num = useSelector((state) => {
     return state.cart.length;
   });
   const logoutHandler = () => {
     dispatch(logIn(""));
+    window.sessionStorage.setItem("login", JSON.stringify({}));
+    navigate("/", { replace: true });
   };
   const cartHandler = () => {
     console.log("portal");
@@ -35,7 +39,7 @@ export default function Menuheader() {
             {num}
           </p>
           <button
-            className="ml-2 rounded outline outline-black-400 outline-2 px-1 "
+            className="ml-2 rounded outline hover:text-white hover:bg-rose-950 outline-black-400 outline-2 px-1 hover:px-1 hover:py-0.5 hover:rounded "
             onClick={logoutHandler}
           >
             Logout

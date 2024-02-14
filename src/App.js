@@ -2,7 +2,7 @@ import "./index.css";
 import Login from "./component/login/login";
 import Registration from "./component/login/registration";
 import Menu from "./component/content/menu";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   RouterProvider,
   Navigate,
@@ -13,9 +13,11 @@ import {
 import Lunch from "./component/content/lunch";
 import Shakes from "./component/content/shakes";
 import Breakfast from "./component/content/breakfast";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Admin from "./component/admin/admin";
 import Menucardcontent from "./component/content/menuCardcontent";
+import { adminLogin, logIn } from "./component/store/cartSlice";
+import Forgetpassword from "./component/login/forgetPassword";
 
 const Somethingwentwrong = () => {
   const routeError = useRouteError();
@@ -24,11 +26,13 @@ const Somethingwentwrong = () => {
 };
 
 const Protectedadmin = () => {
-  const admin = useSelector((state) => {
-    return state.admin.isAdmin;
-  });
-  console.log(admin, "admin in protected");
-  if (admin) {
+  // const admin = useSelector((state) => {
+  //   return state.admin.isAdmin;
+  // });
+  const obj = JSON.parse(window.sessionStorage.getItem("login"));
+  useDispatch(adminLogin(obj.admin));
+  console.log(obj, "admin in protected");
+  if (obj.admin) {
     return <Admin />;
   } else {
     return <Navigate to="/" />;
@@ -36,11 +40,13 @@ const Protectedadmin = () => {
 };
 
 const Protectedlogin = () => {
-  const login = useSelector((state) => {
-    return state.logged.token;
-  });
-  console.log(login, "admin in protected");
-  if (login) {
+  // const login = useSelector((state) => {
+  //   return state.logged.token;
+  // });
+  const obj = JSON.parse(window.sessionStorage.getItem("login"));
+  useDispatch(adminLogin(obj.admin));
+  console.log(obj, "user in protected");
+  if (obj.token) {
     return <Menu />;
   } else {
     return <Navigate to="/" />;
@@ -48,6 +54,11 @@ const Protectedlogin = () => {
 };
 
 const router = createBrowserRouter([
+  {
+    path: "/forgetpassword",
+    element: <Forgetpassword />,
+    errorElement: <Somethingwentwrong />,
+  },
   {
     path: "/registration",
     element: <Registration />,
@@ -75,6 +86,16 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const user = JSON.parse(window.sessionStorage.getItem("login"));
+    if (user) {
+      dispatch(logIn(user.token));
+      if (user.admin) {
+        dispatch(adminLogin());
+      }
+    }
+  }, []);
   return (
     <>
       <RouterProvider router={router}></RouterProvider>

@@ -54,7 +54,8 @@ export default function Registration(props) {
     const isAdmin = document.getElementById("radio").checked;
     const res = await registration(userName, email, contact, password, isAdmin);
     console.log(res, "res from backend");
-    if (res.OK) {
+    // const data = await res.json();
+    if (res.ok) {
       alert("signUp successfully");
       setTimeout(() => {
         console.log("in registration");

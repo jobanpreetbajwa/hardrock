@@ -26,6 +26,26 @@ export default function Customize({ setMenu, customize }) {
   const submitHandler = () => {
     let obj = {};
     let item_id = "";
+
+    try {
+      const formData = new FormData();
+      formData.append("file", item_image);
+      formData.append("item_name", item_name);
+      formData.append("price", price);
+      formData.append("item_description", item_description);
+      formData.append("item_quantity", quantity);
+      const res = fetch("http://192.168.1.60:5000/inventory/add", {
+        method: "POST",
+
+        body: formData,
+      });
+      if (res.OK) {
+        console.log(res.new, "new item added");
+        // navigate("/", { replace: true });
+      }
+    } catch (error) {
+      console.log("error while sending data");
+    }
     setMenu((prev) => {
       item_id = nanoid();
       obj = {
@@ -39,27 +59,6 @@ export default function Customize({ setMenu, customize }) {
       return { ...prev, [item_id]: obj };
     });
     dispatch(setNewdata(obj));
-    try {
-      const formData = new FormData();
-      formData.append("file", item_image);
-      formData.append("item_name", item_name);
-      formData.append("price", price);
-      formData.append("item_description", item_description);
-      formData.append("item_quantity", quantity);
-      const res = fetch("http://192.168.1.60:5000/inventory/add", {
-        method: "POST",
-        // headers: {
-        //   "Content-Type": "multipart/form-data",
-        // },
-        body: formData,
-      });
-      if (res.OK) {
-        console.log(res.new, "new item added");
-        // navigate("/", { replace: true });
-      }
-    } catch (error) {
-      console.log("error while sending data");
-    }
     customize(false);
   };
 

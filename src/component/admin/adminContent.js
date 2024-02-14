@@ -19,6 +19,7 @@ export default function Admincontent() {
       item_name: "pizza",
       item_description: "abcd",
       price: "120",
+      quantity: 1,
     },
     2: {
       item_image: "coffee4.avif",
@@ -26,6 +27,7 @@ export default function Admincontent() {
       item_name: "pizza",
       item_description: "abcd",
       price: "120",
+      quantity: 1,
     },
     3: {
       item_image: "coffee4.avif",
@@ -33,6 +35,7 @@ export default function Admincontent() {
       item_name: "pizza",
       item_description: "abcd",
       price: "120",
+      quantity: 1,
     },
     4: {
       item_image: "coffee4.avif",
@@ -40,6 +43,7 @@ export default function Admincontent() {
       item_name: "pizza",
       item_description: "abcd",
       price: "120",
+      quantity: 1,
     },
     5: {
       item_image: "coffee4.avif",
@@ -47,6 +51,7 @@ export default function Admincontent() {
       item_name: "pizza",
       item_description: "abcd",
       price: "120",
+      quantity: 1,
     },
     6: {
       item_image: "coffee4.avif",
@@ -54,6 +59,7 @@ export default function Admincontent() {
       item_name: "pizza",
       item_description: "abcd",
       price: "120",
+      quantity: 1,
     },
     7: {
       item_image: "coffee4.avif",
@@ -61,6 +67,7 @@ export default function Admincontent() {
       item_name: "pizza",
       item_description: "abcd",
       price: "120",
+      quantity: 1,
     },
     8: {
       item_image: "coffee4.avif",
@@ -68,6 +75,7 @@ export default function Admincontent() {
       item_name: "pizza",
       item_description: "abcd",
       price: "120",
+      quantity: 1,
     },
     9: {
       item_image: "coffee4.avif",
@@ -75,6 +83,7 @@ export default function Admincontent() {
       item_name: "pizza",
       item_description: "abcd",
       price: "120",
+      quantity: 1,
     },
     10: {
       item_image: "coffee4.avif",
@@ -82,6 +91,7 @@ export default function Admincontent() {
       item_name: "pizza",
       item_description: "abcd",
       price: "120",
+      quantity: 1,
     },
     11: {
       item_image: "coffee4.avif",
@@ -89,6 +99,7 @@ export default function Admincontent() {
       item_name: "pizza",
       item_description: "abcd",
       price: "120",
+      quantity: 1,
     },
     12: {
       item_image: "coffee4.avif",
@@ -96,6 +107,7 @@ export default function Admincontent() {
       item_name: "pizza",
       item_description: "abcd",
       price: "120",
+      quantity: 1,
     },
   });
 

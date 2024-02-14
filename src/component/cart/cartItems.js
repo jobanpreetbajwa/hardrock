@@ -42,13 +42,13 @@ export default function Cartitems({ item }) {
         </div>
         <div className="mx-2 text-white">
           <button
-            className="px-2 mx-1 bg-rose-900 rounded-lg hover:bg-rose-950"
+            className="px-2 mx-1 bg-rose-900 rounded-lg outline outline-1 hover:bg-rose-950"
             onClick={addHandler}
           >
             +
           </button>
           <button
-            className="px-2  bg-rose-900 rounded-lg hover:bg-rose-950"
+            className="px-2  bg-rose-900 rounded-lg outline outline-1 hover:bg-rose-950"
             onClick={removeHandler}
           >
             -

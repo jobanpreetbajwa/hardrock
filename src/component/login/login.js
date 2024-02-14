@@ -23,9 +23,17 @@ export default function Login(props) {
       console.log(credentials, "cred");
       const res = await fetch("http://192.168.1.60:5000/googleauth", {
         method: "POST",
-        body: JSON.stringify(credentials),
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          credential: credentials.credential,
+          clientId: credentials.clientId,
+        }),
       });
-      if (res.token) {
+      if (!res.ok) {
+        alert("response not good!");
+      } else if (res.token) {
         dispatch(logIn(res.token));
         navigate("/menu", { replace: true });
       }
@@ -35,7 +43,7 @@ export default function Login(props) {
   };
 
   const emailValidator = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     if (!e.target.value) {
       setEmailerror("Email feild must required");
     } else {
@@ -51,7 +59,7 @@ export default function Login(props) {
     if (!e.target.value) {
       setPassworderror("Password field must required");
     } else {
-      const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{4,}$/;
       if (passwordRegex.test(e.target.value)) {
         setPassword(e.target.value);
       } else {
@@ -73,20 +81,39 @@ export default function Login(props) {
       if (email && password) {
         const res = await loginRequest(email, password, isAdmin);
         console.log(res, "res");
+        const data = await res.json();
+        if (res.ok) {
+          window.sessionStorage.setItem(
+            "login",
+            JSON.stringify({
+              admin: data.isAdmin,
+              token: data.token,
+            })
+          );
+          if (data.isAdmin) {
+            navigate("/admin", { replace: true });
+          } else {
+            navigate("/menu", { replace: true });
+          }
+        }
         if (res.msg === "NO_RECORD_FOUND") {
           setTimeout(() => {
             navigate("/registration", { replace: true });
           }, 1000);
+        } else {
+          alert(data.msg ? data.msg : "login successfully");
         }
-        if (res.admin) {
-          //for admin
-          dispatch(adminLogin());
-          navigate("/admin", { replace: true });
-        }
-        if (res.token) {
-          dispatch(logIn(res.token));
-          navigate("/menu", { replace: true });
-        }
+
+        // if (res.admin) {
+        //   //for admin
+        //   window.sessionStorage.setItem("admin",res.admin)
+        //   dispatch(adminLogin());
+        //   navigate("/admin", { replace: true });
+        // }
+        // if (res.token) {
+        //   dispatch(logIn(res.token));
+        //   navigate("/menu", { replace: true });
+        // }
         console.log(res, "res from backend");
       } else {
         setSubmiterror("fields must required");
@@ -177,7 +204,13 @@ export default function Login(props) {
                   </div>
                 </div>
                 <div className=" tracking-widest py-1 text-center text-white font-serif font-normal ">
-                  <h1>Forget password?</h1>
+                  <h1
+                    onClick={() => {
+                      navigate("/forgetpassword");
+                    }}
+                  >
+                    Forget password?
+                  </h1>
                 </div>
                 <div className="flex justify-center py-2">
                   <GoogleOAuthProvider clientId="120492723923-a7v61c4dbbtr29krkdutqo7orb9jqbue.apps.googleusercontent.com">
